@@ -18,9 +18,9 @@ test('the form should have an input', t => {
   renderer.render(createElement(AddFilm))
   const result = renderer.getRenderOutput()
 
-  const formChildren = result.props.children.find(child => child.type === 'form')
+  const formChildren = result.props.children.find(child => child.type === 'form').props.children
 
-  t.ok(formChildren.props.children.find(child => child.type === 'input'))
+  t.ok(formChildren.find(child => child.type === 'input'))
 })
 
 test('the form should have a button', t => {
@@ -28,7 +28,7 @@ test('the form should have a button', t => {
   renderer.render(createElement(AddFilm))
   const result = renderer.getRenderOutput()
 
-  const formChildren = result.props.children.find(child => child.type === 'form')
+  const formChildren = result.props.children.find(child => child.type === 'form').props.children
 
-  t.ok(formChildren.props.children.find(child => child.type === 'button'))
+  t.ok(formChildren.find(child => child.type === 'button'))
 })

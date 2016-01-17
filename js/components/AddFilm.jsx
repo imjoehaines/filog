@@ -6,13 +6,16 @@ class AddFilm extends Component {
 
     // TODO: use redux
     this.state = { films: [], newFilm: '' }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.addFilmToList = this.addFilmToList.bind(this)
   }
 
   handleChange (event) {
     this.setState({ newFilm: event.target.value })
   }
 
-  handleClick () {
+  addFilmToList () {
     this.setState({
       films: this.state.films.concat([this.state.newFilm]),
       newFilm: ''
@@ -26,15 +29,15 @@ class AddFilm extends Component {
 
     return (
       <div>
-        <form onSubmit={this.handleClick.bind(this)}>
+        <form onSubmit={this.addFilmToList}>
           <input
             value={this.state.newFilm}
-            onChange={this.handleChange.bind(this)}
+            onChange={this.handleChange}
             placeholder='Enter a film title...'
           />
 
           <button
-            onClick={this.handleClick.bind(this)}
+            onClick={this.addFilmToList}
             disabled={this.state.newFilm === ''}
           >Add film</button>
         </form>
