@@ -28,6 +28,8 @@
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "npm-watch": "^0.1.1",
-    "react-addons-test-utils": "^0.14.6"
+    "react-addons-test-utils": "^0.14.6",
+    "snazzy": "^2.0.1",
+    "standard": "^5.4.1"
   }
 }
