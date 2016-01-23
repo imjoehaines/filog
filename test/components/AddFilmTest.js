@@ -5,7 +5,7 @@ import { createElement } from 'react'
 import { createRenderer } from 'react-addons-test-utils'
 
 import 'babel-core/register'
-import AddFilm from '../../js/components/AddFilm.jsx'
+import AddFilm from '../../public/components/AddFilm.jsx'
 
 test('it should render a form', t => {
   const renderer = createRenderer()

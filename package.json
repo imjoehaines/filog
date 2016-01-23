@@ -6,11 +6,11 @@
   "scripts": {
     "watch": "npm-watch",
     "test": "standard | snazzy && ava --verbose",
-    "build": "browserify js/index.jsx -t babelify -o bundle.js"
+    "build": "browserify public/index.jsx -t babelify -o public/bundle.js"
   },
   "watch": {
     "build": {
-      "patterns": "js/**/*",
+      "patterns": ["public/**/*", "!bundle.js"],
       "extensions": "js,jsx"
     }
   },

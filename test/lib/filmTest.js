@@ -3,7 +3,7 @@
 import test from 'ava'
 
 import 'babel-core/register'
-import Film from '../../js/lib/film'
+import Film from '../../public/lib/film'
 
 test('it should accept a name', t => {
   const film = new Film('bob')
