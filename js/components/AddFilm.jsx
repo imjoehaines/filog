@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 
+import Film from '../lib/film.js'
+import FilmList from './FilmList.jsx'
+
 class AddFilm extends Component {
   constructor () {
     super()
@@ -16,17 +19,15 @@ class AddFilm extends Component {
   }
 
   addFilmToList () {
+    const film = new Film(this.state.newFilm)
+
     this.setState({
-      films: this.state.films.concat([this.state.newFilm]),
+      films: this.state.films.concat([film]),
       newFilm: ''
     })
   }
 
   render () {
-    // TODO: refactor this to a separate component - this should just be the form
-    let key = 0
-    const filmList = this.state.films.map(film => <li key={key++}>{film}</li>)
-
     return (
       <div>
         <form onSubmit={this.addFilmToList}>
@@ -42,7 +43,7 @@ class AddFilm extends Component {
           >Add film</button>
         </form>
 
-        <ol>{filmList}</ol>
+        <FilmList films={this.state.films} />
       </div>
     )
   }
