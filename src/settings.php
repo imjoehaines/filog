@@ -6,7 +6,11 @@ return [
         // Monolog settings
         'logger' => [
             'name' => 'filog',
-            'path' => __DIR__ . '/../logs/app.log',
+            'path' => __DIR__ . '/../data/app.log',
+        ],
+
+        'database' => [
+            'path' => __DIR__ . '/../data/db.sq3',
         ],
     ],
 ];

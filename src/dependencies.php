@@ -1,15 +1,28 @@
 <?php
-// DIC configuration
+
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Processor\UidProcessor;
+use Monolog\Processor\WebProcessor;
 
 $container = $app->getContainer();
 
 // monolog
-$container['logger'] = function ($c) {
-    $settings = $c->get('settings')['logger'];
+$container['logger'] = function ($container) {
+    $settings = $container->get('settings')['logger'];
 
-    $logger = new Monolog\Logger($settings['name']);
-    $logger->pushProcessor(new Monolog\Processor\UidProcessor());
-    $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], Monolog\Logger::DEBUG));
+    $logger = new Logger($settings['name']);
+    $logger->pushProcessor(new UidProcessor());
+    $logger->pushProcessor(new WebProcessor());
+    $logger->pushHandler(new StreamHandler($settings['path'], Logger::DEBUG));
 
     return $logger;
+};
+
+$container['database'] = function ($container) {
+    $settings = $container->get('settings')['database'];
+
+    $database = new PDO('sqlite:' . $settings['path']);
+
+    return $database;
 };
