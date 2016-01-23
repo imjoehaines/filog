@@ -1,3 +1,5 @@
+'use strict'
+
 import React, { Component } from 'react'
 
 import Film from '../lib/film.js'

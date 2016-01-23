@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "watch": "npm-watch",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "standard | snazzy && ava --verbose",
     "build": "browserify js/index.jsx -t babelify -o bundle.js"
   },
   "watch": {
@@ -18,7 +18,8 @@
   "license": "ISC",
   "dependencies": {
     "react": "^0.14.6",
-    "react-dom": "^0.14.6"
+    "react-dom": "^0.14.6",
+    "uniquid": "^1.1.4"
   },
   "devDependencies": {
     "ava": "^0.10.0",

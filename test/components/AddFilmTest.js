@@ -1,3 +1,5 @@
+'use strict'
+
 import test from 'ava'
 import { createElement } from 'react'
 import { createRenderer } from 'react-addons-test-utils'
