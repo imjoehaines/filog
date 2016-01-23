@@ -9,9 +9,7 @@ class AddFilm extends Component {
   constructor () {
     super()
 
-    // TODO: use redux
     this.state = { films: [], newFilm: '' }
-
     this.handleChange = this.handleChange.bind(this)
     this.addFilmToList = this.addFilmToList.bind(this)
   }
@@ -20,7 +18,10 @@ class AddFilm extends Component {
     this.setState({ newFilm: event.target.value })
   }
 
-  addFilmToList () {
+  addFilmToList (event) {
+    event.preventDefault()
+    if (this.state.newFilm === '') return
+
     const film = new Film(this.state.newFilm)
 
     this.setState({
