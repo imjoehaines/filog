@@ -1,11 +1,19 @@
 'use strict'
 
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
+import { connect, PromiseState } from 'react-refetch'
 
 import Film from '../lib/film.js'
 import FilmList from './FilmList.jsx'
 
 class AddFilm extends Component {
+  static get propTypes () {
+    return {
+      addFilm: PropTypes.func.isRequired,
+      addFilmResponse: PropTypes.instanceOf(PromiseState)
+    }
+  }
+
   constructor () {
     super()
 
@@ -23,6 +31,8 @@ class AddFilm extends Component {
     if (this.state.newFilm === '') return
 
     const film = new Film(this.state.newFilm)
+
+    this.props.addFilm(film)
 
     this.setState({
       films: this.state.films.concat([film]),
@@ -52,4 +62,12 @@ class AddFilm extends Component {
   }
 }
 
-export default AddFilm
+export default connect(props => ({
+  addFilm: newFilm => ({
+    addFilmResponse: {
+      url: '/add',
+      method: 'POST',
+      body: JSON.stringify({ newFilm })
+    }
+  })
+}))(AddFilm)

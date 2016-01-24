@@ -3,7 +3,10 @@ return [
     'settings' => [
         'displayErrorDetails' => true,
 
-        // Monolog settings
+        'view' => [
+            'path' => __DIR__ . '/../src/templates/',
+        ],
+
         'logger' => [
             'name' => 'filog',
             'path' => __DIR__ . '/../data/app.log',

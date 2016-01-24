@@ -1,13 +1,19 @@
 <?php
 
 use Monolog\Logger;
+use Slim\Views\PhpRenderer;
 use Monolog\Handler\StreamHandler;
 use Monolog\Processor\UidProcessor;
 use Monolog\Processor\WebProcessor;
 
 $container = $app->getContainer();
 
-// monolog
+$container['view'] = function ($container) {
+    $settings = $container->get('settings')['view'];
+
+    return new PhpRenderer($settings['path']);
+};
+
 $container['logger'] = function ($container) {
     $settings = $container->get('settings')['logger'];
 
