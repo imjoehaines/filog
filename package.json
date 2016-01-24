@@ -4,18 +4,9 @@
   "description": "A film log",
   "main": "index.html",
   "scripts": {
-    "watch": "npm-watch",
+    "watch": "watchify src/index.jsx -t babelify -o public/bundle.js",
     "test": "standard | snazzy && browserify test/**/*.js -t babelify | testling",
     "build": "browserify src/index.jsx -t babelify -o public/bundle.js"
-  },
-  "watch": {
-    "build": {
-      "patterns": [
-        "src/**/*",
-        "!bundle.js"
-      ],
-      "extensions": "js,jsx"
-    }
   },
   "author": "imjoehaines",
   "license": "ISC",
@@ -32,11 +23,11 @@
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
-    "npm-watch": "^0.1.1",
     "react-addons-test-utils": "^0.14.6",
     "snazzy": "^2.0.1",
     "standard": "^5.4.1",
     "tape": "^4.4.0",
-    "testling": "^1.7.1"
+    "testling": "^1.7.1",
+    "watchify": "^3.7.0"
   }
 }
