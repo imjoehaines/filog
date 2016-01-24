@@ -3,21 +3,23 @@
 import React, { Component, PropTypes } from 'react'
 import { connect, PromiseState } from 'react-refetch'
 
-import Film from '../lib/film.js'
 import FilmList from './FilmList.jsx'
 
 class AddFilm extends Component {
   static get propTypes () {
     return {
-      addFilm: PropTypes.func.isRequired,
-      addFilmResponse: PropTypes.instanceOf(PromiseState)
+      films: PropTypes.array,
+      refreshFilms: PropTypes.func.isRequired,
+      addFilmFetch: PropTypes.func.isRequired,
+      addFilmResponse: PropTypes.instanceOf(PromiseState),
+      filmsFetch: PropTypes.instanceOf(PromiseState).isRequired
     }
   }
 
   constructor () {
     super()
 
-    this.state = { films: [], newFilm: '' }
+    this.state = { newFilm: '' }
     this.handleChange = this.handleChange.bind(this)
     this.addFilmToList = this.addFilmToList.bind(this)
   }
@@ -30,44 +32,60 @@ class AddFilm extends Component {
     event.preventDefault()
     if (this.state.newFilm === '') return
 
-    const film = new Film(this.state.newFilm)
-
-    this.props.addFilm(film)
-
-    this.setState({
-      films: this.state.films.concat([film]),
-      newFilm: ''
-    })
+    this.props.addFilmFetch(this.state.newFilm)
+    this.setState({ newFilm: '' })
+    this.props.refreshFilms()
   }
 
   render () {
+    let filmList
+    const { newFilm } = this.state
+    const { filmsFetch } = this.props
+
+    if (filmsFetch.pending) {
+      filmList = <p><em>Loading</em>&hellip;</p>
+    } else if (filmsFetch.rejected) {
+      filmList = <p>ERROR</p>
+    } else if (filmsFetch.fulfilled) {
+      filmList = <FilmList films={this.props.filmsFetch.value} />
+    }
+
     return (
       <div>
         <form onSubmit={this.addFilmToList}>
           <input
-            value={this.state.newFilm}
+            value={newFilm}
             onChange={this.handleChange}
             placeholder='Enter a film title...'
           />
 
-          <button
-            onClick={this.addFilmToList}
-            disabled={this.state.newFilm === ''}
-          >Add film</button>
+          <button onClick={this.addFilmToList} disabled={newFilm === ''}>
+            Add film
+          </button>
         </form>
 
-        <FilmList films={this.state.films} />
+        {filmList}
       </div>
     )
   }
 }
 
 export default connect(props => ({
-  addFilm: newFilm => ({
+  addFilmFetch: newFilm => ({
     addFilmResponse: {
       url: '/add',
       method: 'POST',
       body: JSON.stringify({ newFilm })
+    }
+  }),
+
+  filmsFetch: '/get',
+
+  refreshFilms: () => ({
+    filmsFetch: {
+      url: '/get',
+      force: true,
+      refreshing: true
     }
   })
 }))(AddFilm)

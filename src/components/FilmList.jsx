@@ -1,16 +1,24 @@
 'use strict'
 
+import moment from 'moment'
 import React, { Component, PropTypes } from 'react'
-
-import Film from '../lib/film'
 
 class FilmList extends Component {
   static get propTypes () {
-    return { films: PropTypes.arrayOf(PropTypes.instanceOf(Film)) }
+    return { films: PropTypes.array.isRequired }
   }
 
   render () {
-    const filmList = this.props.films.map(film => <li key={film.id}>{film.name}</li>)
+    const filmList = this.props.films.map(film => {
+      return (
+        <li key={film.id}>
+          {film.name}
+          <em style={{ float: 'right', color: '#ccc' }}>
+            Added {moment(film.date_created).fromNow()}
+          </em>
+        </li>
+      )
+    })
 
     return <ol>{filmList}</ol>
   }
