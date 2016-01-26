@@ -6,7 +6,8 @@
   "scripts": {
     "watch": "watchify src/index.jsx -t babelify -o public/bundle.js",
     "test": "standard | snazzy && browserify test/**/*.js -t babelify | testling",
-    "build": "browserify src/index.jsx -t babelify -o public/bundle.js"
+    "build": "browserify src/index.jsx -t babelify -o public/bundle.js",
+    "start": "php -S 0.0.0.0:8000 -t public"
   },
   "author": "imjoehaines",
   "license": "ISC",
