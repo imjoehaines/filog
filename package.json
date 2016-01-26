@@ -4,7 +4,7 @@
   "description": "A film log",
   "main": "index.html",
   "scripts": {
-    "watch": "watchify src/index.jsx -t babelify -o public/bundle.js",
+    "watch": "watchify src/index.jsx -t babelify -o public/bundle.js --verbose",
     "test": "standard | snazzy && browserify test/**/*.js -t babelify | testling",
     "build": "browserify src/index.jsx -t babelify -o public/bundle.js",
     "start": "php -S 0.0.0.0:8000 -t public"
