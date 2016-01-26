@@ -14,7 +14,7 @@ class FilmList extends Component {
         <li key={film.id}>
           {film.name}
           <em style={{ float: 'right', color: '#ccc' }}>
-            Added {moment(film.date_created).fromNow()}
+            {moment(film.date_created).fromNow()}
           </em>
         </li>
       )

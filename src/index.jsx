@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDom from'react-dom'
 
-import AddFilm from './components/AddFilm.jsx'
+import Filog from './components/Filog.jsx'
 
 ReactDom.render(
-  <AddFilm />,
+  <Filog />,
   document.getElementById('container')
 )
