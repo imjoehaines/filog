@@ -14,8 +14,7 @@ class AddFilm extends Component {
   render () {
     return (
       <form onSubmit={this.props.addFilmHandler}>
-        <input
-          value={this.props.newFilm}
+        <input value={this.props.newFilm}
           onChange={this.props.changeHandler}
           placeholder='Enter a film title...'
         />

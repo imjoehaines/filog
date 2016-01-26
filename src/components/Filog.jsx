@@ -28,7 +28,7 @@ class Filog extends Component {
     if (newFilm === '') return
 
     this.setState({
-      films: films.concat([{name: newFilm, id: randomId()}]),
+      films: films.concat([{name: newFilm, id: randomId(), date_created: Date.now()}]),
       newFilm: ''
     })
   }
