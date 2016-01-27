@@ -1,18 +1,23 @@
 'use strict'
 
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
+import { connect, PromiseState } from 'react-refetch'
 
 import AddFilm from './AddFilm.jsx'
 import FilmList from './FilmList.jsx'
 
-// FIXME: this is just temporary until the server is hooked up again
-let randomId = () => 'a'.repeat(Math.floor(Math.random() * (100 - 1) + 1))
-
 class Filog extends Component {
+  static get propTypes () {
+    return {
+      addFilm: PropTypes.func.isRequired,
+      filmsFetch: PropTypes.instanceOf(PromiseState).isRequired
+    }
+  }
+
   constructor () {
     super()
 
-    this.state = { films: [], newFilm: '' }
+    this.state = { newFilm: '' }
     this.handleChange = this.handleChange.bind(this)
     this.addFilmToList = this.addFilmToList.bind(this)
   }
@@ -23,14 +28,11 @@ class Filog extends Component {
 
   addFilmToList (event) {
     event.preventDefault()
-    const { films, newFilm } = this.state
-
+    const { newFilm } = this.state
     if (newFilm === '') return
 
-    this.setState({
-      films: films.concat([{name: newFilm, id: randomId(), date_created: Date.now()}]),
-      newFilm: ''
-    })
+    this.props.addFilm(newFilm)
+    this.setState({ newFilm: '' })
   }
 
   render () {
@@ -41,10 +43,31 @@ class Filog extends Component {
           newFilm={this.state.newFilm}
         />
 
-        <FilmList films={this.state.films} />
+        <FilmList filmsFetch={this.props.filmsFetch} />
       </div>
     )
   }
 }
 
-export default Filog
+export default connect((props) => ({
+  // perform a GET request to '/get' as soon as the component mounts
+  filmsFetch: '/get',
+
+  // inject an 'addFilm' prop which is a function that will POST to /add
+  addFilm: newFilm => ({
+    addFilmResponse: {
+      url: '/add',
+      method: 'POST',
+      body: JSON.stringify({ newFilm }),
+
+      // after the POST, issue the GET request again
+      andThen: () => ({
+        filmsFetch: {
+          url: '/get',
+          refreshing: true,
+          force: true
+        }
+      })
+    }
+  })
+}))(Filog)

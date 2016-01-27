@@ -1,26 +1,42 @@
 'use strict'
 
 import moment from 'moment'
+import { PromiseState } from 'react-refetch'
 import React, { Component, PropTypes } from 'react'
 
 class FilmList extends Component {
   static get propTypes () {
-    return { films: PropTypes.array.isRequired }
+    return { filmsFetch: PropTypes.instanceOf(PromiseState).isRequired }
   }
 
-  render () {
-    const filmList = this.props.films.map(film => {
-      return (
-        <li key={film.id}>
-          {film.name}
-          <em style={{ float: 'right', color: '#ccc' }}>
-            {moment(film.date_created).fromNow()}
-          </em>
-        </li>
-      )
+  constructor () {
+    super()
+
+    this.getDateCreated = this.getDateCreated.bind(this)
+  }
+
+  getDateCreated (dateCreated) {
+    return <em style={{ float: 'right', color: '#ccc' }}>{moment(dateCreated).fromNow()}</em>
+  }
+
+  buildFilmList (films) {
+    const filmList = films.map(film => {
+      return <li key={film.id}>{film.name} {this.getDateCreated(film.date_created)}</li>
     })
 
     return <ol>{filmList}</ol>
+  }
+
+  render () {
+    const { filmsFetch } = this.props
+
+    if (filmsFetch.pending) {
+      return <p>Loading...</p>
+    } else if (filmsFetch.rejected) {
+      return <p>{filmsFetch.reason}</p>
+    } else if (filmsFetch.fulfilled) {
+      return this.buildFilmList(filmsFetch.value)
+    }
   }
 }
 
