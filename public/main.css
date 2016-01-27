@@ -29,3 +29,8 @@ ol {
 li {
   padding-bottom: 0.5rem;
 }
+
+.date {
+  float: right;
+  color: #ccc
+}

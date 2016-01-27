@@ -10,7 +10,7 @@ class FilmList extends Component {
   }
 
   getDateCreated (dateCreated) {
-    return <em style={{ float: 'right', color: '#ccc' }}>{moment(dateCreated).fromNow()}</em>
+    return <em className='date'>{moment(dateCreated).fromNow()}</em>
   }
 
   buildFilmList (films) {
