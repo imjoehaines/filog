@@ -29,7 +29,7 @@ class Filog extends Component {
   addFilmToList (event) {
     event.preventDefault()
     const { newFilm } = this.state
-    if (newFilm === '') return
+    if (newFilm.trim() === '') return
 
     this.props.addFilm(newFilm)
     this.setState({ newFilm: '' })

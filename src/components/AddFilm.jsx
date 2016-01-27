@@ -20,7 +20,7 @@ class AddFilm extends Component {
         />
 
         <button onClick={this.props.addFilmHandler}
-          disabled={this.props.newFilm === ''}
+          disabled={this.props.newFilm.trim() === ''}
         >
           Add film
         </button>
