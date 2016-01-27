@@ -9,12 +9,6 @@ class FilmList extends Component {
     return { filmsFetch: PropTypes.instanceOf(PromiseState).isRequired }
   }
 
-  constructor () {
-    super()
-
-    this.getDateCreated = this.getDateCreated.bind(this)
-  }
-
   getDateCreated (dateCreated) {
     return <em style={{ float: 'right', color: '#ccc' }}>{moment(dateCreated).fromNow()}</em>
   }
