@@ -64,8 +64,8 @@ export default connect((props) => ({
       andThen: () => ({
         filmsFetch: {
           url: '/get',
-          refreshing: true,
-          force: true
+          force: true,
+          refreshing: true
         }
       })
     }
