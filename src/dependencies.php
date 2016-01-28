@@ -18,9 +18,9 @@ $container['logger'] = function ($container) {
     $settings = $container->get('settings')['logger'];
 
     $logger = new Logger($settings['name']);
-    $logger->pushProcessor(new UidProcessor());
-    $logger->pushProcessor(new WebProcessor());
-    $logger->pushHandler(new StreamHandler($settings['path'], Logger::DEBUG));
+    $logger->pushProcessor(new UidProcessor())
+        ->pushProcessor(new WebProcessor())
+        ->pushHandler(new StreamHandler($settings['path'], Logger::DEBUG));
 
     return $logger;
 };
