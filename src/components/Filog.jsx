@@ -10,6 +10,7 @@ class Filog extends Component {
   static get propTypes () {
     return {
       addFilm: PropTypes.func.isRequired,
+      deleteFilm: PropTypes.func.isRequired,
       filmsFetch: PropTypes.instanceOf(PromiseState).isRequired
     }
   }
@@ -43,7 +44,9 @@ class Filog extends Component {
           newFilm={this.state.newFilm}
         />
 
-        <FilmList filmsFetch={this.props.filmsFetch} />
+        <FilmList filmsFetch={this.props.filmsFetch}
+          deleteFilm={this.props.deleteFilm}
+        />
       </div>
     )
   }
@@ -61,6 +64,23 @@ export default connect(props => ({
       body: JSON.stringify({ newFilm }),
 
       // after the POST, issue the GET request again
+      andThen: () => ({
+        filmsFetch: {
+          url: '/get',
+          force: true,
+          refreshing: true
+        }
+      })
+    }
+  }),
+
+  // inject a 'deleteFilm' prop which is a function that will DELETE to /delete/id
+  deleteFilm: id => ({
+    deleteFilmRequest: {
+      method: 'DELETE',
+      url: `/delete/${id}`,
+
+      // after the DELETE, issue the GET request again
       andThen: () => ({
         filmsFetch: {
           url: '/get',

@@ -33,3 +33,13 @@ $app->get('/get', function (Request $request, Response $response, $args) {
 
     return $response;
 });
+
+$app->delete('/delete/{id}', function (Request $request, Response $response, $args) {
+    $sth = $this->database->prepare('DELETE FROM film WHERE id = :id;');
+    $sth->execute([':id' => $args['id']]);
+
+    $response = $response->withHeader('Content-type', 'application/json');
+    $response->getBody()->write(json_encode(true)); // react-refetch requires some response
+
+    return $response;
+});

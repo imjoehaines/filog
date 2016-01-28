@@ -34,3 +34,12 @@ li {
   float: right;
   color: #ccc
 }
+
+.delete {
+  color: #a66;
+  float: right;
+  cursor: pointer;
+  font-size: 0.75rem;
+  margin-left: 1rem;
+  margin-top: 0.2rem;
+}

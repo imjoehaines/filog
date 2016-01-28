@@ -6,15 +6,23 @@ import React, { Component, PropTypes } from 'react'
 class Film extends Component {
   static get propTypes () {
     return {
+      id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
+      deleteFilm: PropTypes.func.isRequired,
       dateCreated: PropTypes.string.isRequired
     }
   }
 
   render () {
-    const { name, dateCreated } = this.props
+    const { id, name, dateCreated, deleteFilm } = this.props
 
-    return <li>{name} <em className='date'>{moment(dateCreated).fromNow()}</em></li>
+    return (
+      <li>
+        {name}
+        <a className='delete' onClick={() => deleteFilm(id)}>✕</a>
+        <em className='date'>{moment(dateCreated).fromNow()}</em>
+      </li>
+    )
   }
 }
 
