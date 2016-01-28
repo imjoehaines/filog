@@ -29,6 +29,7 @@ $container['database'] = function ($container) {
     $settings = $container->get('settings')['database'];
 
     $database = new PDO('sqlite:' . $settings['path']);
+    $database->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
     return $database;
 };

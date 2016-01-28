@@ -26,7 +26,7 @@ $app->get('/get', function (Request $request, Response $response, $args) {
     $sth = $this->database->prepare('SELECT id, name, date_created FROM film ORDER BY date_created ASC;');
     $sth->execute();
 
-    $films = $sth->fetchAll(PDO::FETCH_ASSOC);
+    $films = $sth->fetchAll();
 
     $response = $response->withHeader('Content-type', 'application/json');
     $response->getBody()->write(json_encode($films));
