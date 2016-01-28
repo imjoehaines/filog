@@ -1,21 +1,18 @@
 'use strict'
 
-import moment from 'moment'
 import { PromiseState } from 'react-refetch'
 import React, { Component, PropTypes } from 'react'
+
+import Film from './Film.jsx'
 
 class FilmList extends Component {
   static get propTypes () {
     return { filmsFetch: PropTypes.instanceOf(PromiseState).isRequired }
   }
 
-  getDateCreated (dateCreated) {
-    return <em className='date'>{moment(dateCreated).fromNow()}</em>
-  }
-
   buildFilmList (films) {
     const filmList = films.map(film => {
-      return <li key={film.id}>{film.name} {this.getDateCreated(film.date_created)}</li>
+      return <Film key={film.id} name={film.name} dateCreated={film.date_created} />
     })
 
     return <ol>{filmList}</ol>
