@@ -16,11 +16,11 @@ class FilmList extends Component {
   buildFilmList (films) {
     const filmList = films.map(film => {
       return (
-        <Film key={film.id}
-          id={film.id}
-          name={film.name}
+        <Film deleteFilm={this.props.deleteFilm}
           dateCreated={film.date_created}
-          deleteFilm={this.props.deleteFilm}
+          name={film.name}
+          key={film.id}
+          id={film.id}
         />
       )
     })
