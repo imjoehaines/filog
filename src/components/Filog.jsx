@@ -49,7 +49,7 @@ class Filog extends Component {
   }
 }
 
-export default connect((props) => ({
+export default connect(props => ({
   // perform a GET request to '/get' as soon as the component mounts
   filmsFetch: '/get',
 
