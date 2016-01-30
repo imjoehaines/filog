@@ -1,40 +1,43 @@
 {
   "name": "filog",
+  "license": "ISC",
   "version": "1.0.0",
+  "author": "imjoehaines",
   "description": "A film log",
-  "main": "index.html",
   "scripts": {
-    "watch": "watchify src/index.jsx -t babelify -o public/bundle.js -vd",
     "lint": "standard | snazzy",
+    "start": "php -S 0.0.0.0:8000 -t public",
     "test": "babel-tape-runner test/**/*.js | tap-diff",
     "watch-test": "nodemon -q -e js,jsx -x \"npm run test --silent\"",
     "build": "browserify src/index.jsx -t babelify -o public/bundle.js",
-    "start": "php -S 0.0.0.0:8000 -t public"
+    "watch": "watchify src/index.jsx -t babelify -o public/bundle.js -vd"
   },
-  "author": "imjoehaines",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imjoehaines/filog"
+  },
   "dependencies": {
-    "es6-promise": "^3.0.2",
-    "isomorphic-fetch": "^2.2.1",
-    "moment": "^2.11.1",
     "react": "^0.14.6",
+    "moment": "^2.11.1",
     "react-dom": "^0.14.6",
-    "react-refetch": "^0.6.0"
+    "es6-promise": "^3.0.2",
+    "react-refetch": "^0.6.0",
+    "isomorphic-fetch": "^2.2.1"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13",
-    "babel-tape-runner": "^2.0.0",
-    "babelify": "^7.2.0",
-    "browserify": "^13.0.0",
-    "extend-tape": "^1.1.0",
-    "nodemon": "^1.8.1",
-    "react-addons-test-utils": "^0.14.7",
+    "tape": "^4.4.0",
     "snazzy": "^2.0.1",
+    "nodemon": "^1.8.1",
     "standard": "^5.4.1",
     "tap-diff": "^0.1.1",
-    "tape": "^4.4.0",
+    "watchify": "^3.7.0",
+    "babelify": "^7.2.0",
+    "extend-tape": "^1.1.0",
+    "browserify": "^13.0.0",
     "tape-jsx-equals": "^1.0.0",
-    "watchify": "^3.7.0"
+    "babel-tape-runner": "^2.0.0",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-es2015": "^6.3.13",
+    "react-addons-test-utils": "^0.14.7"
   }
 }
