@@ -7,7 +7,7 @@
     "watch": "watchify src/index.jsx -t babelify -o public/bundle.js -vd",
     "lint": "standard | snazzy",
     "test": "babel-tape-runner test/**/*.js | tap-diff",
-    "watch-test": "nodemon -e js,jsx -x \"npm run test --silent\"",
+    "watch-test": "nodemon -q -e js,jsx -x \"npm run test --silent\"",
     "build": "browserify src/index.jsx -t babelify -o public/bundle.js",
     "start": "php -S 0.0.0.0:8000 -t public"
   },
