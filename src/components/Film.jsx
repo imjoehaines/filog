@@ -1,6 +1,5 @@
 'use strict'
 
-import moment from 'moment'
 import React, { Component, PropTypes } from 'react'
 
 class Film extends Component {
@@ -20,7 +19,7 @@ class Film extends Component {
       <li>
         {name}
         <a className='delete' onClick={() => deleteFilm(id)}>✕</a>
-        <em className='date'>{moment(dateCreated).fromNow()}</em>
+        <em className='date'>{dateCreated}</em>
       </li>
     )
   }

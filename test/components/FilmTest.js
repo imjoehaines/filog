@@ -17,7 +17,7 @@ test('it renders correctly', t => {
     id: 'abc',
     name: 'Terminonter 2',
     deleteFilm: () => {},
-    dateCreated: new Date().toISOString()
+    dateCreated: 'Sat Feb 06 2016'
   }
 
   renderer.render(createElement(Film, props))
@@ -28,7 +28,7 @@ test('it renders correctly', t => {
     <li>
       Terminonter 2
       <a className='delete' onClick={() => {}}>✕</a>
-      <em className='date'>a few seconds ago</em>
+      <em className='date'>Sat Feb 06 2016</em>
     </li>
   )
 

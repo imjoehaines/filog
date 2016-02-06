@@ -23,7 +23,12 @@ $app->post('/add', function (Request $request, Response $response, $args) {
 });
 
 $app->get('/get', function (Request $request, Response $response, $args) {
-    $sth = $this->database->prepare('SELECT id, name, date_created FROM film ORDER BY date_created ASC;');
+    $sth = $this->database->prepare(
+        'SELECT id, name, DATE(date_created) AS date_created
+           FROM film
+       ORDER BY date_created ASC;'
+    );
+
     $sth->execute();
 
     $films = $sth->fetchAll();

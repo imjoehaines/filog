@@ -4,6 +4,7 @@ import { PromiseState } from 'react-refetch'
 import React, { Component, PropTypes } from 'react'
 
 import Film from './Film.jsx'
+import formatDate from '../utils/formatDate'
 
 class FilmList extends Component {
   static get propTypes () {
@@ -17,7 +18,7 @@ class FilmList extends Component {
     const filmList = films.map(film => {
       return (
         <Film deleteFilm={this.props.deleteFilm}
-          dateCreated={film.date_created}
+          dateCreated={formatDate(film.date_created)}
           name={film.name}
           key={film.id}
           id={film.id}
