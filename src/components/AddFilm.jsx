@@ -13,14 +13,14 @@ class AddFilm extends Component {
 
   render () {
     return (
-      <form onSubmit={this.props.addFilmHandler}>
-        <input onChange={this.props.changeHandler}
-          placeholder='Enter a film title...'
-          value={this.props.newFilm}
+      <form onSubmit = {this.props.addFilmHandler}>
+        <input onChange = {this.props.changeHandler}
+          placeholder = 'Enter a film title...'
+          value = {this.props.newFilm}
         />
 
-        <button onClick={this.props.addFilmHandler}
-          disabled={this.props.newFilm.trim() === ''}
+        <button onClick = {this.props.addFilmHandler}
+          disabled = {this.props.newFilm.trim() === ''}
         >
           Add film
         </button>

@@ -36,16 +36,21 @@ class Filog extends Component {
     this.setState({ newFilm: '' })
   }
 
+  rateFilm (filmId, rating) {
+    console.log(filmId, rating)
+  }
+
   render () {
     return (
       <div>
-        <AddFilm addFilmHandler={this.addFilmToList}
-          changeHandler={this.handleChange}
-          newFilm={this.state.newFilm}
+        <AddFilm addFilmHandler = {this.addFilmToList}
+          changeHandler = {this.handleChange}
+          newFilm = {this.state.newFilm}
         />
 
-        <FilmList filmsFetch={this.props.filmsFetch}
-          deleteFilm={this.props.deleteFilm}
+        <FilmList filmsFetch = {this.props.filmsFetch}
+          deleteFilm = {this.props.deleteFilm}
+          rateFilm = {this.rateFilm}
         />
       </div>
     )

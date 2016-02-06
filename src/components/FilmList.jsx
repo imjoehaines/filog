@@ -9,6 +9,7 @@ import formatDate from '../utils/formatDate'
 class FilmList extends Component {
   static get propTypes () {
     return {
+      rateFilm: PropTypes.func.isRequired,
       deleteFilm: PropTypes.func.isRequired,
       filmsFetch: PropTypes.instanceOf(PromiseState).isRequired
     }
@@ -17,11 +18,13 @@ class FilmList extends Component {
   buildFilmList (films) {
     const filmList = films.map(film => {
       return (
-        <Film deleteFilm={this.props.deleteFilm}
-          dateCreated={formatDate(film.date_created)}
-          name={film.name}
-          key={film.id}
-          id={film.id}
+        <Film deleteFilm = {this.props.deleteFilm.bind(null, film.id)}
+          rateFilm = {this.props.rateFilm.bind(null, film.id)}
+          dateCreated = {formatDate(film.date_created)}
+          rating = {film.rating}
+          name = {film.name}
+          key = {film.id}
+          id = {film.id}
         />
       )
     })

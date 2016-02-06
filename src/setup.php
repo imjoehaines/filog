@@ -8,7 +8,8 @@ $database->query('DROP TABLE IF EXISTS film;');
 $database->query(
     'CREATE TABLE film (
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-        name TEXT,
+        name TEXT NOT NULL,
+        rating INTEGER,
         date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );'
 );
