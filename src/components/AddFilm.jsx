@@ -1,32 +1,26 @@
 'use strict'
 
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 
-class AddFilm extends Component {
-  static get propTypes () {
-    return {
-      newFilm: PropTypes.string.isRequired,
-      changeHandler: PropTypes.func.isRequired,
-      addFilmHandler: PropTypes.func.isRequired
-    }
-  }
+const AddFilm = ({ addFilmHandler, changeHandler, newFilm }) => (
+  <form onSubmit = {addFilmHandler}>
+    <input onChange = {changeHandler}
+      placeholder = 'Enter a film title...'
+      value = {newFilm}
+    />
 
-  render () {
-    return (
-      <form onSubmit = {this.props.addFilmHandler}>
-        <input onChange = {this.props.changeHandler}
-          placeholder = 'Enter a film title...'
-          value = {this.props.newFilm}
-        />
+    <button onClick = {addFilmHandler}
+      disabled = {newFilm.trim() === ''}
+    >
+      Add film
+    </button>
+  </form>
+)
 
-        <button onClick = {this.props.addFilmHandler}
-          disabled = {this.props.newFilm.trim() === ''}
-        >
-          Add film
-        </button>
-      </form>
-    )
-  }
+AddFilm.propTypes = {
+  newFilm: PropTypes.string.isRequired,
+  changeHandler: PropTypes.func.isRequired,
+  addFilmHandler: PropTypes.func.isRequired
 }
 
 export default AddFilm

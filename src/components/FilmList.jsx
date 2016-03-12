@@ -1,25 +1,21 @@
 'use strict'
 
 import { PromiseState } from 'react-refetch'
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 
 import Film from './Film.jsx'
 import formatDate from '../utils/formatDate'
 
-class FilmList extends Component {
-  static get propTypes () {
-    return {
-      rateFilm: PropTypes.func.isRequired,
-      deleteFilm: PropTypes.func.isRequired,
-      filmsFetch: PropTypes.instanceOf(PromiseState).isRequired
-    }
-  }
-
-  buildFilmList (films) {
-    const filmList = films.map(film => {
+const FilmList = ({ filmsFetch, deleteFilm, rateFilm }) => {
+  if (filmsFetch.pending) {
+    return <p>Loading...</p>
+  } else if (filmsFetch.rejected) {
+    return <p>{filmsFetch.reason}</p>
+  } else if (filmsFetch.fulfilled) {
+    const filmList = filmsFetch.value.map(film => {
       return (
-        <Film deleteFilm = {this.props.deleteFilm.bind(null, film.id)}
-          rateFilm = {this.props.rateFilm.bind(null, film.id)}
+        <Film deleteFilm = {deleteFilm.bind(null, film.id)}
+          rateFilm = {rateFilm.bind(null, film.id)}
           dateCreated = {formatDate(film.date_created)}
           rating = {film.rating}
           name = {film.name}
@@ -31,18 +27,12 @@ class FilmList extends Component {
 
     return <ol>{filmList}</ol>
   }
+}
 
-  render () {
-    const { filmsFetch } = this.props
-
-    if (filmsFetch.pending) {
-      return <p>Loading...</p>
-    } else if (filmsFetch.rejected) {
-      return <p>{filmsFetch.reason}</p>
-    } else if (filmsFetch.fulfilled) {
-      return this.buildFilmList(filmsFetch.value)
-    }
-  }
+FilmList.propTypes = {
+  rateFilm: PropTypes.func.isRequired,
+  deleteFilm: PropTypes.func.isRequired,
+  filmsFetch: PropTypes.instanceOf(PromiseState).isRequired
 }
 
 export default FilmList

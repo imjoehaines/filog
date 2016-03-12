@@ -1,27 +1,19 @@
 'use strict'
 
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 
-class Rater extends Component {
-  static get propTypes () {
-    return {
-      rateFilm: PropTypes.func.isRequired
-    }
-  }
+const Rater = ({ rateFilm }) => (
+  <span>
+    <a onClick = {rateFilm.bind(null, 1)}>1</a>
+    <a onClick = {rateFilm.bind(null, 2)}>2</a>
+    <a onClick = {rateFilm.bind(null, 3)}>3</a>
+    <a onClick = {rateFilm.bind(null, 4)}>4</a>
+    <a onClick = {rateFilm.bind(null, 5)}>5</a>
+  </span>
+)
 
-  render () {
-    const { rateFilm } = this.props
-
-    return (
-      <span>
-        <a onClick = {rateFilm.bind(null, 1)}>1</a>
-        <a onClick = {rateFilm.bind(null, 2)}>2</a>
-        <a onClick = {rateFilm.bind(null, 3)}>3</a>
-        <a onClick = {rateFilm.bind(null, 4)}>4</a>
-        <a onClick = {rateFilm.bind(null, 5)}>5</a>
-      </span>
-    )
-  }
+Rater.propTypes = {
+  rateFilm: PropTypes.func.isRequired
 }
 
 export default Rater
