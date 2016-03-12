@@ -6,10 +6,10 @@ import Rater from './Rater.jsx'
 
 const Film = ({ name, rateFilm, deleteFilm, dateCreated }) => (
   <li>
-    {name} &mdash;
-    <Rater rateFilm = {rateFilm} />
+    {name}
     <a className = 'delete' onClick = {deleteFilm}>✕</a>
     <em className = 'date'>{dateCreated}</em>
+    <Rater rateFilm = {rateFilm} />
   </li>
 )
 
