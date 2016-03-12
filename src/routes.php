@@ -24,7 +24,7 @@ $app->post('/add', function (Request $request, Response $response, $args) {
 
 $app->get('/get', function (Request $request, Response $response, $args) {
     $sth = $this->database->prepare(
-        'SELECT id, name, DATE(date_created) AS date_created
+        'SELECT id, name, rating, DATE(date_created) AS date_created
            FROM film
        ORDER BY date_created ASC;'
     );
@@ -32,6 +32,12 @@ $app->get('/get', function (Request $request, Response $response, $args) {
     $sth->execute();
 
     $films = $sth->fetchAll();
+
+    $films = array_map(function ($film) {
+        $film['id'] = (int) $film['id'];
+        $film['rating'] = (int) $film['rating'];
+        return $film;
+    }, $films);
 
     $response = $response->withHeader('Content-type', 'application/json');
     $response->getBody()->write(json_encode($films));
@@ -42,6 +48,16 @@ $app->get('/get', function (Request $request, Response $response, $args) {
 $app->delete('/delete/{id}', function (Request $request, Response $response, $args) {
     $sth = $this->database->prepare('DELETE FROM film WHERE id = :id;');
     $sth->execute([':id' => $args['id']]);
+
+    $response = $response->withHeader('Content-type', 'application/json');
+    $response->getBody()->write(json_encode(true)); // react-refetch requires some response
+
+    return $response;
+});
+
+$app->post('/rate/{id}/{rating}', function (Request $request, Response $response, $args) {
+    $sth = $this->database->prepare('UPDATE film SET rating = :rating WHERE id = :id;');
+    $sth->execute([':rating' => $args['rating'], ':id' => $args['id']]);
 
     $response = $response->withHeader('Content-type', 'application/json');
     $response->getBody()->write(json_encode(true)); // react-refetch requires some response

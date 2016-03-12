@@ -10,6 +10,7 @@ class Filog extends Component {
   static get propTypes () {
     return {
       addFilm: PropTypes.func.isRequired,
+      rateFilm: PropTypes.func.isRequired,
       deleteFilm: PropTypes.func.isRequired,
       filmsFetch: PropTypes.instanceOf(PromiseState).isRequired
     }
@@ -36,10 +37,6 @@ class Filog extends Component {
     this.setState({ newFilm: '' })
   }
 
-  rateFilm (filmId, rating) {
-    console.log(filmId, rating)
-  }
-
   render () {
     return (
       <div>
@@ -50,7 +47,7 @@ class Filog extends Component {
 
         <FilmList filmsFetch = {this.props.filmsFetch}
           deleteFilm = {this.props.deleteFilm}
-          rateFilm = {this.rateFilm}
+          rateFilm = {this.props.rateFilm}
         />
       </div>
     )
@@ -86,6 +83,23 @@ export default connect(props => ({
       url: `/delete/${id}`,
 
       // after the DELETE, issue the GET request again
+      andThen: () => ({
+        filmsFetch: {
+          url: '/get',
+          force: true,
+          refreshing: true
+        }
+      })
+    }
+  }),
+
+  // inject a 'rateFilm' prop which is a function that will POST to /rate/id/rating
+  rateFilm: (id, rating) => ({
+    rateFilmRequest: {
+      method: 'POST',
+      url: `/rate/${id}/${rating}`,
+
+      // after the POST, issue the GET request again
       andThen: () => ({
         filmsFetch: {
           url: '/get',

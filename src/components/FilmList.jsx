@@ -12,18 +12,16 @@ const FilmList = ({ filmsFetch, deleteFilm, rateFilm }) => {
   } else if (filmsFetch.rejected) {
     return <p>{filmsFetch.reason}</p>
   } else if (filmsFetch.fulfilled) {
-    const filmList = filmsFetch.value.map(film => {
-      return (
-        <Film deleteFilm = {deleteFilm.bind(null, film.id)}
-          rateFilm = {rateFilm.bind(null, film.id)}
-          dateCreated = {formatDate(film.date_created)}
-          rating = {film.rating}
-          name = {film.name}
-          key = {film.id}
-          id = {film.id}
-        />
-      )
-    })
+    const filmList = filmsFetch.value.map(film => (
+      <Film deleteFilm = {deleteFilm.bind(null, film.id)}
+        dateCreated = {formatDate(film.date_created)}
+        rateFilm = {rateFilm.bind(null, film.id)}
+        rating = {film.rating}
+        name = {film.name}
+        key = {film.id}
+        id = {film.id}
+      />
+    ))
 
     return <ol>{filmList}</ol>
   }

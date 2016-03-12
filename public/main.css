@@ -46,4 +46,6 @@ li {
 
 .rater {
   float: right;
+  cursor: pointer;
+  color: #ec0;
 }
