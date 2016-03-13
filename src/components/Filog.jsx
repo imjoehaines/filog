@@ -54,25 +54,27 @@ class Filog extends Component {
   }
 }
 
-export default connect(props => ({
-  // perform a GET request to '/films' as soon as the component mounts
-  filmsFetch: '/films',
+const refreshFieldsFetch = () => ({
+  filmsFetch: {
+    url: '/films/',
+    force: true,
+    refreshing: true
+  }
+})
 
-  // inject an 'addFilm' prop which is a function that will POST to /films
+export default connect(props => ({
+  // perform a GET request to '/films/' as soon as the component mounts
+  filmsFetch: '/films/',
+
+  // inject an 'addFilm' prop which is a function that will POST to /films/
   addFilm: newFilm => ({
     addFilmResponse: {
-      url: '/films',
+      url: '/films/',
       method: 'POST',
       body: JSON.stringify({ newFilm }),
 
       // after the POST, issue the GET request again
-      andThen: () => ({
-        filmsFetch: {
-          url: '/films',
-          force: true,
-          refreshing: true
-        }
-      })
+      andThen: refreshFieldsFetch
     }
   }),
 
@@ -83,13 +85,7 @@ export default connect(props => ({
       url: `/films/${id}`,
 
       // after the DELETE, issue the GET request again
-      andThen: () => ({
-        filmsFetch: {
-          url: '/films',
-          force: true,
-          refreshing: true
-        }
-      })
+      andThen: refreshFieldsFetch
     }
   }),
 
@@ -100,13 +96,7 @@ export default connect(props => ({
       url: `/films/${id}/rate/${rating}`,
 
       // after the POST, issue the GET request again
-      andThen: () => ({
-        filmsFetch: {
-          url: '/films',
-          force: true,
-          refreshing: true
-        }
-      })
+      andThen: refreshFieldsFetch
     }
   })
 }))(Filog)
