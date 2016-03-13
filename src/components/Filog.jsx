@@ -55,20 +55,20 @@ class Filog extends Component {
 }
 
 export default connect(props => ({
-  // perform a GET request to '/get' as soon as the component mounts
-  filmsFetch: '/get',
+  // perform a GET request to '/films' as soon as the component mounts
+  filmsFetch: '/films',
 
-  // inject an 'addFilm' prop which is a function that will POST to /add
+  // inject an 'addFilm' prop which is a function that will POST to /films
   addFilm: newFilm => ({
     addFilmResponse: {
-      url: '/add',
+      url: '/films',
       method: 'POST',
       body: JSON.stringify({ newFilm }),
 
       // after the POST, issue the GET request again
       andThen: () => ({
         filmsFetch: {
-          url: '/get',
+          url: '/films',
           force: true,
           refreshing: true
         }
@@ -76,16 +76,16 @@ export default connect(props => ({
     }
   }),
 
-  // inject a 'deleteFilm' prop which is a function that will DELETE to /delete/id
+  // inject a 'deleteFilm' prop which is a function that will DELETE to /films/:id
   deleteFilm: id => ({
     deleteFilmRequest: {
       method: 'DELETE',
-      url: `/delete/${id}`,
+      url: `/films/${id}`,
 
       // after the DELETE, issue the GET request again
       andThen: () => ({
         filmsFetch: {
-          url: '/get',
+          url: '/films',
           force: true,
           refreshing: true
         }
@@ -93,16 +93,16 @@ export default connect(props => ({
     }
   }),
 
-  // inject a 'rateFilm' prop which is a function that will POST to /rate/id/rating
+  // inject a 'rateFilm' prop which is a function that will POST to /films/:id/rate/:rating
   rateFilm: (id, rating) => ({
     rateFilmRequest: {
       method: 'POST',
-      url: `/rate/${id}/${rating}`,
+      url: `/films/${id}/rate/${rating}`,
 
       // after the POST, issue the GET request again
       andThen: () => ({
         filmsFetch: {
-          url: '/get',
+          url: '/films',
           force: true,
           refreshing: true
         }

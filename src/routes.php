@@ -7,7 +7,7 @@ $app->get('/', function (Request $request, Response $response, $args) {
     return $this->view->render($response, 'filog.html');
 });
 
-$app->post('/add', function (Request $request, Response $response, $args) {
+$app->post('/films', function (Request $request, Response $response, $args) {
     $parsedBody = $request->getParsedBody();
     $film = $parsedBody['newFilm'];
 
@@ -22,7 +22,7 @@ $app->post('/add', function (Request $request, Response $response, $args) {
     return $response;
 });
 
-$app->get('/get', function (Request $request, Response $response, $args) {
+$app->get('/films', function (Request $request, Response $response, $args) {
     $sth = $this->database->prepare(
         'SELECT id, name, rating, DATE(date_created) AS date_created
            FROM film
@@ -45,7 +45,7 @@ $app->get('/get', function (Request $request, Response $response, $args) {
     return $response;
 });
 
-$app->delete('/delete/{id}', function (Request $request, Response $response, $args) {
+$app->delete('/films/{id}', function (Request $request, Response $response, $args) {
     $sth = $this->database->prepare('DELETE FROM film WHERE id = :id;');
     $sth->execute([':id' => $args['id']]);
 
@@ -55,7 +55,7 @@ $app->delete('/delete/{id}', function (Request $request, Response $response, $ar
     return $response;
 });
 
-$app->post('/rate/{id}/{rating}', function (Request $request, Response $response, $args) {
+$app->post('/films/{id}/rate/{rating}', function (Request $request, Response $response, $args) {
     $sth = $this->database->prepare('UPDATE film SET rating = :rating WHERE id = :id;');
     $sth->execute([':rating' => $args['rating'], ':id' => $args['id']]);
 
