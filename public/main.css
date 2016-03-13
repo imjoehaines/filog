@@ -30,22 +30,24 @@ li {
   padding-bottom: 0.5rem;
 }
 
-.date {
+.controls {
   float: right;
+  font-size: 0.75rem;
+}
+
+.date {
   color: #ccc;
-  margin: 0 1rem;
+}
+
+.action {
+  cursor: pointer;
 }
 
 .delete {
   color: #a66;
-  float: right;
-  cursor: pointer;
-  font-size: 0.75rem;
-  margin-top: 0.2rem;
 }
 
 .rater {
-  float: right;
-  cursor: pointer;
   color: #ec0;
+  margin: 0 1rem;
 }

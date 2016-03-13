@@ -3,7 +3,7 @@
 import React, { PropTypes } from 'react'
 
 const Rater = ({ rateFilm, rating }) => (
-  <span className = 'rater'>
+  <span className = 'rater action'>
     <a onClick = {rateFilm.bind(null, 1)}>{rating && rating >= 1 ? '★' : '☆'}</a>
     <a onClick = {rateFilm.bind(null, 2)}>{rating && rating >= 2 ? '★' : '☆'}</a>
     <a onClick = {rateFilm.bind(null, 3)}>{rating && rating >= 3 ? '★' : '☆'}</a>

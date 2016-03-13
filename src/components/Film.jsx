@@ -7,9 +7,11 @@ import Rater from './Rater.jsx'
 const Film = ({ name, rateFilm, rating, deleteFilm, dateCreated }) => (
   <li>
     {name}
-    <a className = 'delete' onClick = {deleteFilm}>✕</a>
-    <em className = 'date'>{dateCreated}</em>
-    <Rater rateFilm = {rateFilm} rating = {rating} />
+    <span className = 'controls'>
+      <em className = 'date'>{dateCreated}</em>
+      <Rater rateFilm = {rateFilm} rating = {rating} />
+      <a className = 'delete action' onClick = {deleteFilm}>✕</a>
+    </span>
   </li>
 )
 
