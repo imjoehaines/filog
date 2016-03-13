@@ -7,60 +7,62 @@ $app->get('/', function (Request $request, Response $response, $args) {
     return $this->view->render($response, 'filog.html');
 });
 
-$app->post('/films', function (Request $request, Response $response, $args) {
-    $parsedBody = $request->getParsedBody();
-    $film = $parsedBody['newFilm'];
+$app->group('/films', function () {
+    $this->get('/', function (Request $request, Response $response, $args) {
+        $sth = $this->database->prepare(
+            'SELECT id, name, rating, DATE(date_created) AS date_created
+               FROM film
+           ORDER BY date_created ASC;'
+        );
 
-    $sth = $this->database->prepare('INSERT INTO film (name) VALUES (:name);');
-    $sth->execute([':name' => $film]);
+        $sth->execute();
 
-    $response = $response->withHeader('Content-type', 'application/json');
-    $response->getBody()->write(json_encode([
-        'id' => $this->database->lastInsertId(),
-    ]));
+        $films = $sth->fetchAll();
 
-    return $response;
-});
+        $films = array_map(function ($film) {
+            $film['id'] = (int) $film['id'];
+            $film['rating'] = (int) $film['rating'];
+            return $film;
+        }, $films);
 
-$app->get('/films', function (Request $request, Response $response, $args) {
-    $sth = $this->database->prepare(
-        'SELECT id, name, rating, DATE(date_created) AS date_created
-           FROM film
-       ORDER BY date_created ASC;'
-    );
+        $response = $response->withHeader('Content-type', 'application/json');
+        $response->getBody()->write(json_encode($films));
 
-    $sth->execute();
+        return $response;
+    });
 
-    $films = $sth->fetchAll();
+    $this->post('/', function (Request $request, Response $response, $args) {
+        $parsedBody = $request->getParsedBody();
+        $film = $parsedBody['newFilm'];
 
-    $films = array_map(function ($film) {
-        $film['id'] = (int) $film['id'];
-        $film['rating'] = (int) $film['rating'];
-        return $film;
-    }, $films);
+        $sth = $this->database->prepare('INSERT INTO film (name) VALUES (:name);');
+        $sth->execute([':name' => $film]);
 
-    $response = $response->withHeader('Content-type', 'application/json');
-    $response->getBody()->write(json_encode($films));
+        $response = $response->withHeader('Content-type', 'application/json');
+        $response->getBody()->write(json_encode([
+            'id' => $this->database->lastInsertId(),
+        ]));
 
-    return $response;
-});
+        return $response;
+    });
 
-$app->delete('/films/{id}', function (Request $request, Response $response, $args) {
-    $sth = $this->database->prepare('DELETE FROM film WHERE id = :id;');
-    $sth->execute([':id' => $args['id']]);
+    $this->delete('/{id:[0-9]+}', function (Request $request, Response $response, $args) {
+        $sth = $this->database->prepare('DELETE FROM film WHERE id = :id;');
+        $sth->execute([':id' => $args['id']]);
 
-    $response = $response->withHeader('Content-type', 'application/json');
-    $response->getBody()->write(json_encode(true)); // react-refetch requires some response
+        $response = $response->withHeader('Content-type', 'application/json');
+        $response->getBody()->write(json_encode(true)); // react-refetch requires some response
 
-    return $response;
-});
+        return $response;
+    });
 
-$app->post('/films/{id}/rate/{rating}', function (Request $request, Response $response, $args) {
-    $sth = $this->database->prepare('UPDATE film SET rating = :rating WHERE id = :id;');
-    $sth->execute([':rating' => $args['rating'], ':id' => $args['id']]);
+    $this->post('/{id:[0-9]+}/rate/{rating:[1-5]}', function (Request $request, Response $response, $args) {
+        $sth = $this->database->prepare('UPDATE film SET rating = :rating WHERE id = :id;');
+        $sth->execute([':rating' => $args['rating'], ':id' => $args['id']]);
 
-    $response = $response->withHeader('Content-type', 'application/json');
-    $response->getBody()->write(json_encode(true)); // react-refetch requires some response
+        $response = $response->withHeader('Content-type', 'application/json');
+        $response->getBody()->write(json_encode(true)); // react-refetch requires some response
 
-    return $response;
+        return $response;
+    });
 });
