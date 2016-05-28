@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react'
 
 import Rater from './Rater.jsx'
 
-const Film = ({ name, rateFilm, rating, deleteFilm, dateCreated }) => (
+const Film = ({ name, rateFilm, rating, deleteFilm, dateCreated }) =>
   <li>
     {name}
     <span className = 'controls'>
@@ -13,7 +13,6 @@ const Film = ({ name, rateFilm, rating, deleteFilm, dateCreated }) => (
       <a className = 'delete action' onClick = {deleteFilm}>✕</a>
     </span>
   </li>
-)
 
 Film.propTypes = {
   rating: PropTypes.number,

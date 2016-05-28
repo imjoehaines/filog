@@ -2,7 +2,7 @@
 
 import React, { PropTypes } from 'react'
 
-const AddFilm = ({ addFilmHandler, changeHandler, newFilm }) => (
+const AddFilm = ({ addFilmHandler, changeHandler, newFilm }) =>
   <form onSubmit = {addFilmHandler}>
     <input onChange = {changeHandler}
       placeholder = 'Enter a film title...'
@@ -15,7 +15,6 @@ const AddFilm = ({ addFilmHandler, changeHandler, newFilm }) => (
       Add film
     </button>
   </form>
-)
 
 AddFilm.propTypes = {
   newFilm: PropTypes.string.isRequired,
