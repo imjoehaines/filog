@@ -85,7 +85,7 @@ export default connect(props => ({
       url: `/films/${id}`,
 
       // after the DELETE, issue the GET request again
-      andThen: refreshFieldsFetch // TODO: figure out why this isn't triggered anymore
+      andThen: refreshFieldsFetch
     }
   }),
 
@@ -96,7 +96,7 @@ export default connect(props => ({
       url: `/films/${id}/rate/${rating}`,
 
       // after the POST, issue the GET request again
-      andThen: refreshFieldsFetch // TODO: figure out why this isn't triggered anymore
+      andThen: refreshFieldsFetch
     }
   })
 }))(Filog)

@@ -5,7 +5,7 @@ module.exports = db => (request, reply) => {
     err => {
       if (err) throw err
 
-      reply('yay') // TODO this could probably be more helpful vOv
+      reply({})
     }
   )
 }
