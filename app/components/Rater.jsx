@@ -13,7 +13,7 @@ const Rater = ({ rateFilm, rating }) => (
 )
 
 Rater.propTypes = {
-  rating: PropTypes.number.isRequired,
+  rating: PropTypes.number,
   rateFilm: PropTypes.func.isRequired
 }
 

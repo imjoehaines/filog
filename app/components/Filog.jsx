@@ -67,11 +67,11 @@ export default connect(props => ({
   filmsFetch: '/films/',
 
   // inject an 'addFilm' prop which is a function that will POST to /films/
-  addFilm: newFilm => ({
+  addFilm: name => ({
     addFilmResponse: {
       url: '/films/',
       method: 'POST',
-      body: JSON.stringify({ newFilm }),
+      body: JSON.stringify({ name }),
 
       // after the POST, issue the GET request again
       andThen: refreshFieldsFetch
@@ -85,7 +85,7 @@ export default connect(props => ({
       url: `/films/${id}`,
 
       // after the DELETE, issue the GET request again
-      andThen: refreshFieldsFetch
+      andThen: refreshFieldsFetch // TODO: figure out why this isn't triggered anymore
     }
   }),
 
@@ -96,7 +96,7 @@ export default connect(props => ({
       url: `/films/${id}/rate/${rating}`,
 
       // after the POST, issue the GET request again
-      andThen: refreshFieldsFetch
+      andThen: refreshFieldsFetch // TODO: figure out why this isn't triggered anymore
     }
   })
 }))(Filog)

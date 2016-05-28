@@ -16,9 +16,9 @@ const Film = ({ name, rateFilm, rating, deleteFilm, dateCreated }) => (
 )
 
 Film.propTypes = {
+  rating: PropTypes.number,
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  rating: PropTypes.number.isRequired,
   rateFilm: PropTypes.func.isRequired,
   deleteFilm: PropTypes.func.isRequired,
   dateCreated: PropTypes.string.isRequired

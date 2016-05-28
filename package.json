@@ -6,11 +6,11 @@
   "description": "A film log",
   "scripts": {
     "lint": "standard | snazzy",
-    "start": "php -S 0.0.0.0:8000 -t public",
+    "start": "node index.js",
     "test": "babel-tape-runner test/**/*.js | tap-diff",
     "watch-test": "nodemon -q -e js,jsx -x \"npm run test --silent\"",
-    "build": "browserify src/index.jsx -t babelify -o public/bundle.js",
-    "watch": "watchify src/index.jsx -t babelify -o public/bundle.js -vd"
+    "build": "browserify app/index.jsx -t babelify -o public/bundle.js",
+    "watch": "watchify app/index.jsx -t babelify -o public/bundle.js -vd"
   },
   "repository": {
     "type": "git",
@@ -18,10 +18,13 @@
   },
   "dependencies": {
     "es6-promise": "^3.0.2",
+    "hapi": "^13.4.1",
+    "inert": "^4.0.0",
     "isomorphic-fetch": "^2.2.1",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
-    "react-refetch": "^0.7.0-beta.1"
+    "react-refetch": "^0.7.0-beta.1",
+    "sqlite3": "^3.1.4"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.3.13",
