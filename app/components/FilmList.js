@@ -15,7 +15,7 @@ const FilmList = ({ filmsFetch, deleteFilm, rateFilm }) => {
     const filmList = filmsFetch.value.map(film => (
       <Film deleteFilm={() => deleteFilm(film.id)}
         dateCreated={formatDate(film.date_created)}
-        rateFilm={() => rateFilm(film.id)}
+        rateFilm={rateFilm.bind(null, film.id)}
         rating={film.rating}
         name={film.name}
         key={film.id}
