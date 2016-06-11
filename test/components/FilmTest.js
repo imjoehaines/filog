@@ -6,7 +6,7 @@ import jsxEquals from 'tape-jsx-equals'
 import React, { createElement } from 'react'
 import { createRenderer } from 'react-addons-test-utils'
 
-import Film from '../../src/components/Film.jsx'
+import Film from '../../src/components/Film'
 
 const test = addAssertions(tape, { jsxEquals })
 

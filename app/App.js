@@ -3,8 +3,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect, PromiseState } from 'react-refetch'
 
-import AddFilm from './AddFilm.jsx'
-import FilmList from './FilmList.jsx'
+import AddFilm from './components/AddFilm'
+import FilmList from './components/FilmList'
 
 class Filog extends Component {
   static get propTypes () {

@@ -3,7 +3,7 @@
 import { PromiseState } from 'react-refetch'
 import React, { PropTypes } from 'react'
 
-import Film from './Film.jsx'
+import Film from './Film'
 import formatDate from '../utils/formatDate'
 
 const FilmList = ({ filmsFetch, deleteFilm, rateFilm }) => {
@@ -13,13 +13,13 @@ const FilmList = ({ filmsFetch, deleteFilm, rateFilm }) => {
     return <p>{filmsFetch.reason}</p>
   } else if (filmsFetch.fulfilled) {
     const filmList = filmsFetch.value.map(film => (
-      <Film deleteFilm = {deleteFilm.bind(null, film.id)}
-        dateCreated = {formatDate(film.date_created)}
-        rateFilm = {rateFilm.bind(null, film.id)}
-        rating = {film.rating}
-        name = {film.name}
-        key = {film.id}
-        id = {film.id}
+      <Film deleteFilm={() => deleteFilm(film.id)}
+        dateCreated={formatDate(film.date_created)}
+        rateFilm={() => rateFilm(film.id)}
+        rating={film.rating}
+        name={film.name}
+        key={film.id}
+        id={film.id}
       />
     ))
 

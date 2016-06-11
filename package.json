@@ -8,9 +8,12 @@
     "lint": "standard | snazzy",
     "start": "node index.js",
     "test": "babel-tape-runner test/**/*.js | tap-diff",
-    "watch-test": "nodemon -q -e js,jsx -x \"npm run test --silent\"",
-    "build": "browserify app/index.jsx -t babelify -o public/bundle.js",
-    "watch": "watchify app/index.jsx -t babelify -o public/bundle.js -vd"
+    "watch-test": "nodemon -q -e js -x \"npm run test --silent\"",
+    "build": "browserify app/index.js -t babelify -o public/bundle.js",
+    "watch": "watchify app/index.js -t babelify -o public/bundle.js -vd"
+  },
+  "babel": {
+    "presets": ["react", "es2015"]
   },
   "repository": {
     "type": "git",

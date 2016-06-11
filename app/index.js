@@ -3,9 +3,9 @@
 import React from 'react'
 import ReactDom from'react-dom'
 
-import Filog from './components/Filog.jsx'
+import App from './App'
 
 ReactDom.render(
-  <Filog />,
+  <App />,
   document.getElementById('container')
 )

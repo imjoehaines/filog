@@ -2,15 +2,15 @@
 
 import React, { PropTypes } from 'react'
 
-import Rater from './Rater.jsx'
+import Rater from './Rater'
 
 const Film = ({ name, rateFilm, rating, deleteFilm, dateCreated }) =>
   <li>
     {name}
-    <span className = 'controls'>
-      <em className = 'date'>{dateCreated}</em>
-      <Rater rateFilm = {rateFilm} rating = {rating} />
-      <a className = 'delete action' onClick = {deleteFilm}>✕</a>
+    <span className='controls'>
+      <em className='date'>{dateCreated}</em>
+      <Rater rateFilm={rateFilm} rating={rating} />
+      <a className='delete action' onClick={deleteFilm}>✕</a>
     </span>
   </li>
 
