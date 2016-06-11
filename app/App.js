@@ -40,14 +40,14 @@ class Filog extends Component {
   render () {
     return (
       <div>
-        <AddFilm addFilmHandler = {this.addFilmToList}
-          changeHandler = {this.handleChange}
-          newFilm = {this.state.newFilm}
+        <AddFilm addFilmHandler={this.addFilmToList}
+          changeHandler={this.handleChange}
+          newFilm={this.state.newFilm}
         />
 
-        <FilmList filmsFetch = {this.props.filmsFetch}
-          deleteFilm = {this.props.deleteFilm}
-          rateFilm = {this.props.rateFilm}
+        <FilmList filmsFetch={this.props.filmsFetch}
+          deleteFilm={this.props.deleteFilm}
+          rateFilm={this.props.rateFilm}
         />
       </div>
     )
