@@ -36,6 +36,12 @@ server.route({
   handler: require('./src/rateFilm')(db)
 })
 
+server.route({
+  method: 'GET',
+  path: '/films/search/{name}',
+  handler: require('./src/searchForFilm')
+})
+
 // route for static assets
 server.route({
   method: 'GET',

@@ -5,6 +5,7 @@ import { connect, PromiseState } from 'react-refetch'
 
 import AddFilm from './components/AddFilm'
 import FilmList from './components/FilmList'
+import FilmPreview from './components/FilmPreview'
 
 class Filog extends Component {
   static get propTypes () {
@@ -25,12 +26,13 @@ class Filog extends Component {
   }
 
   handleChange (event) {
+    this.props.searchForFilm(event.target.value)
     this.setState({ newFilm: event.target.value })
   }
 
   addFilmToList (event) {
     event.preventDefault()
-    const { newFilm } = this.state
+    const newFilm = this.props.searchForFilmResponse.value.Title
     if (newFilm.trim() === '') return
 
     this.props.addFilm(newFilm)
@@ -38,12 +40,36 @@ class Filog extends Component {
   }
 
   render () {
+    let stuff = <p>stuff</p>
+
+    if (this.props.searchForFilmResponse && this.props.searchForFilmResponse.pending) {
+      stuff = <p>Loading...</p>
+    } else if (this.props.searchForFilmResponse && this.props.searchForFilmResponse.rejected) {
+      stuff = <p>{this.props.searchForFilmResponse.reason}</p>
+    } else if (this.props.searchForFilmResponse && this.props.searchForFilmResponse.fulfilled) {
+      if (this.props.searchForFilmResponse.value.Error) {
+        stuff = <p>{this.props.searchForFilmResponse.value.Error}</p>
+      } else {
+        stuff = (
+          <FilmPreview
+            name={this.props.searchForFilmResponse.value.Title}
+            releaseDate={this.props.searchForFilmResponse.value.Released}
+            genre={this.props.searchForFilmResponse.value.Genre}
+            actors={this.props.searchForFilmResponse.value.Actors}
+            poster={this.props.searchForFilmResponse.value.Poster}
+          />
+        )
+      }
+    }
+
     return (
       <div>
         <AddFilm addFilmHandler={this.addFilmToList}
           changeHandler={this.handleChange}
           newFilm={this.state.newFilm}
         />
+
+        {stuff}
 
         <FilmList filmsFetch={this.props.filmsFetch}
           deleteFilm={this.props.deleteFilm}
@@ -65,6 +91,12 @@ const refreshFieldsFetch = () => ({
 export default connect(props => ({
   // perform a GET request to '/films/' as soon as the component mounts
   filmsFetch: '/films/',
+
+  searchForFilm: name => ({
+    searchForFilmResponse: {
+      url: `/films/search/${name}`
+    }
+  }),
 
   // inject an 'addFilm' prop which is a function that will POST to /films/
   addFilm: name => ({

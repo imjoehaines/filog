@@ -24,6 +24,8 @@ input {
 
 ol {
   text-align: left;
+  list-style-position: inside;
+  padding: 0;
 }
 
 li {
@@ -50,4 +52,23 @@ li {
 .rater {
   color: #ec0;
   margin: 0 1rem;
+}
+
+.film-preview {
+  overflow: hidden;
+}
+
+.film-preview img {
+  height: 15rem;
+  float: left;
+  margin-right: 1rem;
+}
+
+.film-preview p,
+.film-preview h2 {
+  text-align: left;
+}
+
+.film-preview small {
+  color: #666;
 }
